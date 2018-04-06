@@ -1,28 +1,34 @@
-def divisors(number):
-    # initialize
-    answer = [ ]
-    i=0
-    candidates = list(range(1, int(number**0.5)))
+"""
+https://www.practicepython.org
 
-    # find the answers
-    for i in candidates:
+Exercise 4: Divisors
+2 chilis
+
+Create a program that asks the user for a number and then prints out a list
+of all the divisors of that number. (If you don’t know what a divisor is,
+it is a number that divides evenly into another number. For example, 13 is
+a divisor of 26 because 26 / 13 has no remainder.)
+
+"""
+
+# this does not return negative divisors
+def find_divisors(number):
+    divisors = [ 1, number ]         # 1 and number itself are always divisors
+
+    # find any other divisors
+    for i in list(range(2, int(number**0.5) + 1)):
         if number % i == 0:
-            answer.append(i)
-            answer.append(int(number / i))
+            divisors.append(i)
+            divisors.append(int(number / i))
 
-    # if i is the sq rt of number, add i to the list
-    if (i+1) == number**0.5:
-        answer.append(i+1)
+    # remove duplicate, only happens if number is a square
+    if divisors[-2] == divisors[-1]:
+        divisors.pop()
 
-    # print the results
-    if len(answer) <=2:
-        print("%d is prime! " % number)
-    else:
-        print("%d has %d divisors: " % (number, len(answer)))
-        answer.sort()
-        print(answer)
+    return(divisors)
 
 
-number = int(input("Please choose a number: "))
-divisors(number)
+# ignore error checking the input
+number = int(input("Please choose an integer greater than 0: "))
+print(find_divisors(number))
 
