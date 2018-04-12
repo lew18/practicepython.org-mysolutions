@@ -1,6 +1,20 @@
-# her solution created a second list of happy numbers and the compared the two lists
-# and used a function to create each list by sending the file name to the function and returning the list
-# and then can use list comprehension
+"""
+https://www.practicepython.org
+
+Exercise 23: File Overlap
+2 chilis
+
+Given two .txt files that have lists of numbers in them, find the numbers
+that are overlapping. One .txt file has a list of all prime numbers under
+1000, and the other .txt file has a list of happy numbers up to 1000.
+
+(If you forgot, prime numbers are numbers that can’t be divided by any
+other number. And yes, happy numbers are a real thing in mathematics -
+you can look it up on Wikipedia. The explanation is easier with an example,
+which I will describe below.)
+
+"""
+
 
 def file_overlap():
     # read in the primes and save as a list of ints
@@ -21,3 +35,22 @@ def file_overlap():
 
 if __name__ == '__main__':
     file_overlap()
+
+"""
+Michele's second solution:
+
+def filetolistofints(filename):
+	list_to_return = []
+	with open(filename) as f:
+		line = f.readline()
+		while line:
+			list_to_return.append(int(line))
+			line = f.readline()
+	return list_to_return
+
+primeslist = filetolistofints('primenumbers.txt')
+happieslist = filetolistofints('happynumbers.txt')
+
+overlaplist = [elem for elem in primeslist if elem in happieslist]
+print(overlaplist)
+"""
