@@ -1,17 +1,41 @@
 """
-move=[int(value)-1 for value in raw_input('player %d (%s), make your move [row,col]: ' % (whos_turn,icon(whos_turn))).split(',')]
-One of Michele's sample answers had the above line for getting the players move, list comprehension again...
-also good to see another way to do input:     raw_input(string with variables)
-another sample answer showed:    gameboard = [(['.']*3) for i in range(3)]
-curiously [([" ", " ", " "] * 3)]   doesn't work
+https://www.practicepython.org
 
-reminder that three quotes start and end a block of comments
+Exercise 29: Tic Tac Toe Game
+3 chilis
+
+This exercise is Part of 4 of the Tic Tac Toe exercise series.
+The other exercises are: Part 1, Part 2, and Part 3.
+
+In 3 previous exercises, we built up a few components needed to
+build a Tic Tac Toe game in Python:
+
+Draw the Tic Tac Toe game board
+Checking whether a game board has a winner
+Handle a player move from user input
+The next step is to put all these three components together to make a
+two-player Tic Tac Toe game! Your challenge in this exercise is to use
+the functions from those previous exercises all together in the same
+program to make a two-player game that you can play with a friend. There
+are a lot of choices you will have to make when completing this exercise,
+so you can go as far or as little as you want with it.
+
+Here are a few things to keep in mind:
+- You should keep track of who won - if there is a winner, show a
+  congratulatory message on the screen.
+- If there are no more moves left, don’t ask for the next player’s move!
+
+As a bonus, you can ask the players if they want to play again and
+keep a running tally of who won more - Player 1 or Player 2.
+
 """
 
-unclaimed_location = " "
+unclaimed_location = "   "
+player1_game_piece = ' X '
+player2_game_piece = ' 0 '
 
 def play_tictactoe():
-    game_piece = ["X", "O"]
+    game_piece = [player1_game_piece, player2_game_piece]
     game_board = [[unclaimed_location, unclaimed_location, unclaimed_location],
                   [unclaimed_location, unclaimed_location, unclaimed_location],
                   [unclaimed_location, unclaimed_location, unclaimed_location]]
@@ -66,7 +90,7 @@ def print_game_board(game_board, message):
     print_border(len(game_board))     # print the top border
     for row in range(len(game_board[0])):
         for column in range(len(game_board)):
-            print("| " + game_board[row][column], end = " ")
+            print("|" + game_board[row][column], end = "")
         print("|")
         print_border(len(game_board))     # print the top border
 
@@ -81,14 +105,15 @@ if __name__ == '__main__':
     while continue_playing:
         game_board = (play_tictactoe())
         winner = find_winner(game_board)
-        if "no" in winner:
-            message_string = "Tie game"
-        elif winner == 'X':
+        if winner == player1_game_piece:
             message_string = "winner is player 1"
             wins[0] += 1
-        else:
+        elif winner == player2_game_piece:
             message_string = "winner is player 2"
             wins[1] += 1
+        else:
+            message_string = "Tie game"
+
         print_game_board(game_board, message_string)
         if input("continue playing (y/n) ") not in ['y', 'Y', 'yes', 'Yes', 'YES']:
             continue_playing = False
